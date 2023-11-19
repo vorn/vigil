@@ -589,7 +589,10 @@ fn proceed_rabbitmq_queue_probe(
                     ));
 
                     // Queue loaded?
-                    if response_json.messages_ready >= rabbitmq.queue_ready_healthy_below
+                    if response_json.messages_ready
+                        >= rabbitmq_queue
+                            .queue_ready_healthy_below
+                            .unwrap_or(rabbitmq.queue_ready_healthy_below)
                         || response_json.messages_unacknowledged
                             >= rabbitmq_queue
                                 .queue_nack_healthy_below
@@ -606,7 +609,10 @@ fn proceed_rabbitmq_queue_probe(
                     }
 
                     // Queue stalled?
-                    if response_json.messages_ready > rabbitmq.queue_ready_dead_above
+                    if response_json.messages_ready
+                        > rabbitmq_queue
+                            .queue_ready_dead_above
+                            .unwrap_or(rabbitmq.queue_ready_dead_above)
                         || response_json.messages_unacknowledged
                             > rabbitmq_queue
                                 .queue_nack_dead_above
@@ -879,6 +885,8 @@ pub fn initialize_store() {
                         queue: queue.to_owned(),
                         queue_nack_healthy_below: node.rabbitmq_queue_nack_healthy_below,
                         queue_nack_dead_above: node.rabbitmq_queue_nack_dead_above,
+                        queue_ready_healthy_below: node.rabbitmq_queue_ready_healthy_below,
+                        queue_ready_dead_above: node.rabbitmq_queue_ready_dead_above,
                     }
                 }),
             };

@@ -60,6 +60,8 @@ pub struct ServiceStatesProbeNodeRabbitMQ {
     pub queue: String,
     pub queue_nack_healthy_below: Option<u32>,
     pub queue_nack_dead_above: Option<u32>,
+    pub queue_ready_healthy_below: Option<u32>,
+    pub queue_ready_dead_above: Option<u32>,
 }
 
 #[derive(Serialize, Clone, Default)]

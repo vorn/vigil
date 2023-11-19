@@ -312,6 +312,8 @@ pub struct ConfigProbeServiceNode {
     pub rabbitmq_queue: Option<String>,
     pub rabbitmq_queue_nack_healthy_below: Option<u32>,
     pub rabbitmq_queue_nack_dead_above: Option<u32>,
+    pub rabbitmq_queue_ready_healthy_below: Option<u32>,
+    pub rabbitmq_queue_ready_dead_above: Option<u32>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
